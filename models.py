@@ -18,13 +18,15 @@ model = VGG16(weights="imagenet", include_top=False, input_shape=INPUT_SHAPE)
 
 
 
+
+
 # create image dataset for retraining
 nyu_dataset_train = DataGenerator(IMAGE_TRAIN, )
+
+# 1. add a linear layer to the end of VGG16
+# 2. add a classifier layer with the same number of nodes as joints
+# 3. train end layers
 
 # Perform inference
 predictions = model.predict(img_array)
 
-# Decode and print the top-3 predicted labels
-decoded_predictions = decode_predictions(predictions, top=3)[0]
-for i, (imagenet_id, label, score) in enumerate(decoded_predictions):
-    print(f"{i+1}: {label} ({score:.2f})")
